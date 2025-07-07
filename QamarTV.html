@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>QamarTV - جميع القنوات</title>
+  <style>
+    body {
+      background: linear-gradient(to bottom, #000, #1a1a1a);
+      color: white;
+      font-family: 'Cairo', sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .category {
+      margin: 20px 0;
+    }
+    .category-title {
+      font-size: 24px;
+      background: #FFC600;
+      color: black;
+      padding: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .channels {
+      display: none;
+      margin-top: 10px;
+    }
+    .channel {
+      margin: 10px auto;
+      padding: 10px;
+      width: 80%;
+      background: #333;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    iframe {
+      margin-top: 30px;
+      width: 100%;
+      height: 320px;
+      border: none;
+      background: black;
+    }
+  </style>
+</head>
+<body>
+  <h1>QamarTV - جميع القنوات</h1>
+
+  <!-- قسم QamarSport -->
+  <div class="category">
+    <div class="category-title" onclick="toggleChannels('qamarsport')">⚽ QamarSport</div>
+    <div class="channels" id="qamarsport">
+      <div class="channel" onclick="play('http://live.showtv.ps/showTV/ND91-U23A99DA/1443.m3u8')">QamarSport 1</div>
+      <div class="channel" onclick="play('http://live.showtv.ps/showTV/ND91-U23A99DA/1445.m3u8')">QamarSport 2</div>
+    </div>
+  </div>
+
+  <!-- قسم News -->
+  <div class="category">
+    <div class="category-title" onclick="toggleChannels('news')">📰 News</div>
+    <div class="channels" id="news">
+      <div class="channel" onclick="play('http://live.showtv.ps/showTV/ND91-U23A99DA/19.m3u8')">News Channel 1</div>
+      <div class="channel" onclick="play('http://live.showtv.ps/showTV/ND91-U23A99DA/24.m3u8')">News Channel 2</div>
+    </div>
+  </div>
+
+  <!-- قسم PostSport -->
+  <div class="category">
+    <div class="category-title" onclick="toggleChannels('postsport')">🏟️ PostSport</div>
+    <div class="channels" id="postsport">
+      <div class="channel" onclick="play('http://live.showtv.ps/showTV/ND91-U23A99DA/2346.m3u8')">PostSport 1</div>
+      <div class="channel" onclick="play('http://live.showtv.ps/showTV/ND91-U23A99DA/2347.m3u8')">PostSport 2</div>
+    </div>
+  </div>
+
+  <!-- مشغل الفيديو -->
+  <iframe id="player" allowfullscreen></iframe>
+
+  <script>
+    function toggleChannels(id) {
+      const all = document.querySelectorAll('.channels');
+      all.forEach(el => el.style.display = 'none');
+      document.getElementById(id).style.display = 'block';
+    }
+
+    function play(url) {
+      document.getElementById("player").src = "https://videojs.github.io/videojs-contrib-hls/examples/index.html?url=" + encodeURIComponent(url);
+    }
+  </script>
+</body>
+</html>
