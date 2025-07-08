@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>QamarTV</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      background: linear-gradient(to bottom, #1f1c2c, #5e5473);
+      color: white;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      height: 100%;
+      width: 100%;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: rgba(15, 12, 30, 0.95);
+      padding: 20px 10px;
+      box-shadow: inset -1px 0 8px #00000066;
+      overflow-y: auto;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 999;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar.show {
+      transform: translateX(0);
+    }
+
+    .sidebar h3 {
+      font-size: 20px;
+      color: #d8b4fe;
+      text-align: center;
+      margin-bottom: 20px;
+      text-shadow: 0 0 8px #7c3aedaa;
+    }
+
+    .channel-button {
+      display: block;
+      background-color: #7b2cbf;
+      color: white;
+      border: none;
+      padding: 12px;
+      margin: 8px 0;
+      width: 100%;
+      text-align: center;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+      outline: none;
+    }
+
+    .channel-button:focus {
+      outline: none;
+    }
+
+    .channel-button.active {
+      background-color: #d8b4fe;
+      color: #000;
+      box-shadow: 0 0 10px #a855f7;
+    }
+
+    .main {
+      flex: 1;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+    }
+
+    .main.show {
+      display: flex;
+    }
+
+    video {
+      width: 100vw;
+      height: 100vh;
+      max-width: 1920px;
+      max-height: 1080px;
+      object-fit: contain;
+      background: #000;
+      border: none;
+      box-shadow: 0 0 30px #00000099;
+      border-radius: 12px;
+    }
+
+    #back-message {
+      position: fixed;
+      bottom: 20px;
+      right: 50%;
+      transform: translateX(50%);
+      background: #222;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      display: none;
+      z-index: 9999;
+    }
+
+    @media screen and (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        position: relative;
+        transform: translateX(0);
+      }
+
+      .channel-button {
+        width: 100px;
+        margin: 5px;
+        display: inline-block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="sidebar" id="sidebar">
+    <h3>QamarTV</h3>
+    <button class="channel-button" onclick="changeStream(0)">NBA</button>
+    <button class="channel-button" onclick="changeStream(1)">PostSport 1</button>
+    <button class="channel-button" onclick="changeStream(2)">PostSport 2</button>
+    <button class="channel-button" onclick="changeStream(3)">PostSport 3</button>
+    <button class="channel-button" onclick="changeStream(4)">PostSport 4</button>
+    <button class="channel-button" onclick="changeStream(5)">PostSport 5</button>
+    <button class="channel-button" onclick="changeStream(6)">PostSport 6</button>
+  </div>
+
+  <div class="main" id="main">
+    <video id="player" controls autoplay muted playsinline></video>
+  </div>
+</div>
+
+<div id="back-message">ً</div>
+
+<script>
+  const sidebar = document.getElementById('sidebar');
+  const main = document.getElementById('main');
+  const player = document.getElementById('player');
+  const backMessage = document.getElementById('back-message');
+  const buttons = document.querySelectorAll('.channel-button');
+
+  const streamLinks = [
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/19.m3u8',
+    'http://use.snapmediatoghater.site:8080/live/439742499659/439742499659/385682.m3u8',
+    'http://use.snapmediatoghater.site:8080/live/439742499659/439742499659/385683.m3u8',
+    'http://use.snapmediatoghater.site:8080/live/439742499659/439742499659/385684.m3u8',
+    'http://use.snapmediatoghater.site:8080/live/439742499659/439742499659/385685.m3u8',
+    'http://use.snapmediatoghater.site:8080/live/439742499659/439742499659/385686.m3u8',
+    'http://use.snapmediatoghater.site:8080/live/439742499659/439742499659/385687.m3u8'
+  ];
+
+  let backPressedOnce = false;
+  let currentIndex = 0;
+
+  function changeStream(index) {
+    currentIndex = index;
+    player.style.display = "none";
+    setTimeout(() => {
+      player.src = streamLinks[index];
+      player.load();
+      player.play();
+      player.style.display = "block";
+    }, 300);
+    sidebar.classList.remove('show');
+    main.classList.add('show');
+    highlightButton(index);
+  }
+
+  function highlightButton(index) {
+    buttons.forEach(btn => btn.classList.remove('active'));
+    buttons[index].classList.add('active');
+    buttons[index].focus();
+    buttons[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function showBackMessage() {
+    backMessage.style.display = 'block';
+    setTimeout(() => {
+      backMessage.style.display = 'none';
+    }, 1300);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    highlightButton(currentIndex);
+    changeStream(currentIndex);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    const key = e.key;
+    const sidebarVisible = sidebar.classList.contains('show');
+
+    if (key === 'ArrowDown') {
+      currentIndex = (currentIndex + 1) % buttons.length;
+      highlightButton(currentIndex);
+      if (!sidebarVisible) changeStream(currentIndex);
+    }
+
+    if (key === 'ArrowUp') {
+      currentIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+      highlightButton(currentIndex);
+      if (!sidebarVisible) changeStream(currentIndex);
+    }
+
+    if (key === 'Enter' || key === 'OK') {
+      if (sidebarVisible) {
+        buttons[currentIndex].click();
+      } else {
+        sidebar.classList.add('show');
+      }
+    }
+
+    if (key === 'ArrowLeft' || key === 'ArrowRight') {
+      sidebar.classList.add('show');
+    }
+
+    if (key === 'Backspace' || key === 'Escape') {
+      if (sidebarVisible) {
+        sidebar.classList.remove('show');
+      } else {
+        if (backPressedOnce) {
+          window.history.back();
+        } else {
+          backPressedOnce = true;
+          showBackMessage();
+          setTimeout(() => backPressedOnce = false, 1500);
+        }
+      }
+    }
+  });
+
+  let touchStartY = 0;
+  let touchEndY = 0;
+  let touchStartTime = 0;
+
+  document.addEventListener('touchstart', function(e) {
+    touchStartY = e.touches[0].clientY;
+    touchStartTime = Date.now();
+  });
+
+  document.addEventListener('touchend', function(e) {
+    touchEndY = e.changedTouches[0].clientY;
+    const deltaY = touchStartY - touchEndY;
+    const timeDiff = Date.now() - touchStartTime;
+    const sidebarVisible = sidebar.classList.contains('show');
+
+    if (deltaY > 40 && timeDiff < 800) {
+      if (!sidebarVisible) {
+        currentIndex = (currentIndex + 1) % buttons.length;
+        highlightButton(currentIndex);
+        changeStream(currentIndex);
+      }
+    }
+
+    if (deltaY < -40 && timeDiff < 800) {
+      if (!sidebarVisible) {
+        currentIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+        highlightButton(currentIndex);
+        changeStream(currentIndex);
+      }
+    }
+
+    if (Math.abs(deltaY) < 10 && timeDiff < 300) {
+      sidebar.classList.toggle('show');
+    }
+  });
+</script>
+
+</body>
+</html>
