@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <title>QamarTV - البث المباشر</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
-  <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
   <style>
     * {
       margin: 0;
@@ -37,12 +36,12 @@
       top: 0;
       bottom: 0;
       z-index: 999;
-      transform: translateX(0);
+      transform: translateX(100%);
       transition: transform 0.3s ease;
     }
 
-    .sidebar.hide {
-      transform: translateX(100%);
+    .sidebar.show {
+      transform: translateX(0);
     }
 
     .sidebar h3 {
@@ -136,43 +135,66 @@
 <body>
 
 <div class="container">
-  <div class="sidebar" id="sidebar">
-    <h3>قنوات QamarTV</h3>
-    <button class="channel-button" onclick="changeStream(0)">Post TV</button>
-    <button class="channel-button" onclick="changeStream(1)">PostSport 1</button>
-    <button class="channel-button" onclick="changeStream(2)">PostSport 2</button>
-    <button class="channel-button" onclick="changeStream(3)">PostSport 3</button>
-    <button class="channel-button" onclick="changeStream(4)">PostSport 4</button>
-    <button class="channel-button" onclick="changeStream(5)">PostSport 5</button>
-    <button class="channel-button" onclick="changeStream(6)">PostSport 6</button>
+  <div class="sidebar" id="sidebar"> 
+    <h3>قنوات Sports Plus</h3>
+    <button class="channel-button" onclick="changeStream(0)">NBA كرة سلة</button>
+    <button class="channel-button" onclick="changeStream(1)">KSA Sport1</button>
+    <button class="channel-button" onclick="changeStream(2)">KSA Sport2</button>
+    <button class="channel-button" onclick="changeStream(3)">Palestine Sport</button>
+    <button class="channel-button" onclick="changeStream(4)">Jordan Sport</button>
+    <button class="channel-button" onclick="changeStream(5)">Sharqah Sport</button>
+    <button class="channel-button" onclick="changeStream(6)">Dubai Sport</button>
+    <button class="channel-button" onclick="changeStream(7)">Dubai Sport2</button>
+    <button class="channel-button" onclick="changeStream(8)">Dubai Sport3</button>
+    <button class="channel-button" onclick="changeStream(9)">Nile Sport</button>
+    <button class="channel-button" onclick="changeStream(10)">Zamalek Sport</button>
+    <button class="channel-button" onclick="changeStream(11)">Al-Ahly TV</button>
+    <button class="channel-button" onclick="changeStream(12)">OneTime Sport</button>
+    <button class="channel-button" onclick="changeStream(13)">OneTime Sport2</button>
+    <button class="channel-button" onclick="changeStream(14)">Bahrain Sport1</button>
+    <button class="channel-button" onclick="changeStream(15)">Bahrain Sport2</button>
+    <button class="channel-button" onclick="changeStream(16)">Kuwait Sport1</button>
+    <button class="channel-button" onclick="changeStream(17)">Kuwait Sport2</button>
+    <button class="channel-button" onclick="changeStream(18)">Iraqi Sport</button>
+    <button class="channel-button" onclick="changeStream(19)">Horse TV</button>
   </div>
+  
 
   <div class="main" id="main">
-    <video id="player" class="video-js vjs-default-skin" controls autoplay preload="auto" data-setup='{}'>
-      <source src="" type="application/x-mpegURL" />
-      عذرًا، جهازك لا يدعم تشغيل الفيديو.
-    </video>
+    <video id="player" controls autoplay></video>
   </div>
 </div>
 
 <div id="back-message">🔙 اضغط مرة أخرى للرجوع</div>
 
-<script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
 <script>
   const sidebar = document.getElementById('sidebar');
   const main = document.getElementById('main');
-  const player = videojs('player');
+  const player = document.getElementById('player');
   const backMessage = document.getElementById('back-message');
   const buttons = document.querySelectorAll('.channel-button');
 
   const streamLinks = [
-    'http://use.snapmediatoghater.site:8080/live/439742499659/439742499659/385537.m3u8',
-    'http://live.showtv.ps/showTV/ND91-U23A99DA/1445.m3u8',
-    'http://live.showtv.ps/showTV/ND91-U23A99DA/1444.m3u8',
-    'http://live.showtv.ps/showTV/ND91-U23A99DA/1450.m3u8',
-    'http://live.showtv.ps/showTV/ND91-U23A99DA/1451.m3u8',
-    'http://live.showtv.ps/showTV/ND91-U23A99DA/1452.m3u8',
-    'http://live.showtv.ps/showTV/ND91-U23A99DA/1453.m3u8'
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/19.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/24.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/1498.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/28.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/29.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/30.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/31.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/2373.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/2411.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/32.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/33.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/34.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/35.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/36.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/15949.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/15950.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/15951.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/15952.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/15955.m3u8',
+    'http://live.showtv.ps/showTV/ND91-U23A99DA/42.m3u8'
   ];
 
   let backPressedOnce = false;
@@ -180,11 +202,14 @@
 
   function changeStream(index) {
     currentIndex = index;
-    player.pause();
-    player.src({ type: 'application/x-mpegURL', src: streamLinks[index] });
-    player.load();
-    player.play();
-    sidebar.classList.add('hide');
+    player.style.display = "none";
+    setTimeout(() => {
+      player.src = streamLinks[index];
+      player.load();
+      player.play();
+      player.style.display = "block";
+    }, 300);
+    sidebar.classList.remove('show');
     main.classList.add('show');
     highlightButton(index);
   }
@@ -205,12 +230,12 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     highlightButton(currentIndex);
-    changeStream(currentIndex); // عرض القناة الأولى عند التشغيل
+    changeStream(currentIndex);
   });
 
   document.addEventListener('keydown', function (e) {
     const key = e.key;
-    const sidebarVisible = !sidebar.classList.contains('hide');
+    const sidebarVisible = sidebar.classList.contains('show');
 
     if (key === 'ArrowDown') {
       currentIndex = (currentIndex + 1) % buttons.length;
@@ -226,19 +251,19 @@
 
     if (key === 'Enter' || key === 'OK') {
       if (sidebarVisible) {
-        buttons[currentIndex].click(); // تشغيل القناة المختارة في القائمة
+        buttons[currentIndex].click();
       } else {
-        sidebar.classList.remove('hide');
+        sidebar.classList.add('show');
       }
     }
 
     if (key === 'ArrowLeft' || key === 'ArrowRight') {
-      sidebar.classList.remove('hide');
+      sidebar.classList.add('show');
     }
 
     if (key === 'Backspace' || key === 'Escape') {
       if (sidebarVisible) {
-        sidebar.classList.add('hide');
+        sidebar.classList.remove('show');
       } else {
         if (backPressedOnce) {
           window.history.back();
@@ -248,6 +273,46 @@
           setTimeout(() => backPressedOnce = false, 1500);
         }
       }
+    }
+  });
+
+  // ✅ دعم اللمس:
+  let touchStartY = 0;
+  let touchEndY = 0;
+  let touchStartTime = 0;
+
+  document.addEventListener('touchstart', function(e) {
+    touchStartY = e.touches[0].clientY;
+    touchStartTime = Date.now();
+  });
+
+  document.addEventListener('touchend', function(e) {
+    touchEndY = e.changedTouches[0].clientY;
+    const deltaY = touchStartY - touchEndY;
+    const timeDiff = Date.now() - touchStartTime;
+    const sidebarVisible = sidebar.classList.contains('show');
+
+    // سحب لأعلى
+    if (deltaY > 40 && timeDiff < 800) {
+      if (!sidebarVisible) {
+        currentIndex = (currentIndex + 1) % buttons.length;
+        highlightButton(currentIndex);
+        changeStream(currentIndex);
+      }
+    }
+
+    // سحب لأسفل
+    if (deltaY < -40 && timeDiff < 800) {
+      if (!sidebarVisible) {
+        currentIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+        highlightButton(currentIndex);
+        changeStream(currentIndex);
+      }
+    }
+
+    // لمسة واحدة فقط
+    if (Math.abs(deltaY) < 10 && timeDiff < 300) {
+      sidebar.classList.toggle('show');
     }
   });
 </script>
