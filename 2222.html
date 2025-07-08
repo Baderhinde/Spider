@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>QamarTV - البث المباشر</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #fff;
+      font-family: 'Cairo', sans-serif;
+      text-align: center;
+    }
+
+    .video-container {
+      padding: 0;
+    }
+
+    .video-js {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    h2 {
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="video-container">
+    <video
+      id="my-video"
+      class="video-js vjs-default-skin"
+      controls
+      preload="auto"
+      autoplay
+      data-setup='{}'>
+      <source src="http://live.showtv.ps/showTV/ND91-U23A99DA/1445.m3u8" type="application/x-mpegURL" />
+      عذرًا، جهازك لا يدعم تشغيل الفيديو.
+    </video>
+  </div>
+
+  <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+</body>
+</html>
